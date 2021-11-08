@@ -27,7 +27,7 @@ class Nomics:
         self.key = key
         self.base_url = base_url
 
-    def request(self, endpoint, params: dict):
+    def request(self, endpoint, params):
         """The basic request that all API calls use
         the parameters are joined in the actual api methods so the parameter
         strings can be passed and merged. 
@@ -50,7 +50,7 @@ class Nomics:
         return r.json()
 
     # Currencies
-    def currencies_ticker(self, params):
+    def currencies_ticker(self, params=None):
         '''
         Currencies Ticker:
 
@@ -69,9 +69,9 @@ class Nomics:
 
         '''
 
-        return self.request("currencies/ticker/", params=params)
+        return self.request("currencies/ticker", params=params)
 
-    def currencies_metadata(self, params):
+    def currencies_metadata(self, params=None):
         """
         The currencies endpoint returns all the currencies and their metadata that Nomics supports.
 
@@ -83,10 +83,10 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
 
         """
-        return self.request("currencies/metadata/", params=params)
+        return self.request("currencies", params=params)
 
     # Markets
-    def market(self, params):
+    def market(self, params=None):
         """
         The markets endpoint returns information on the exchanges and markets that Nomics supports,
         in addition to the Nomics currency identifiers for the base and quote currency.
@@ -101,9 +101,9 @@ class Nomics:
             
 
         """
-        return self.request("market/", params=params)
+        return self.request("market", params=params)
 
-    def market_cap_history(self, params):
+    def market_cap_history(self, params=None):
         """
         MarketCap History is the total market cap for all cryptoassets at intervals between the requested time period.
 
@@ -116,10 +116,10 @@ class Nomics:
             
         """
 
-        return self.request("market-cap/history/", params=params)
+        return self.request("market-cap/history", params=params)
     
     # Volume
-    def volume_history(self, params):
+    def volume_history(self, params=None):
         """
         Volume History is the total volume for all cryptoassets in USD
         at intervals between the requested time period. For each entry, 
@@ -134,10 +134,10 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
             
         """
-        return self.request("volume/history/", params=params)
+        return self.request("volume/history", params=params)
     
     # Exchange Rates
-    def exchange_rates(self, params):
+    def exchange_rates(self, params=None):
         """
         The exchange rates endpoint returns the current exchange rates used
         by Nomics to convert prices from markets into USD. This contains Fiat
@@ -155,9 +155,9 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
         
         """
-        return self.request("exchange-rates/", params=params)
+        return self.request("exchange-rates", params=params)
     
-    def exchange_rates_history(self, params):
+    def exchange_rates_history(self, params=None):
         """
         Exchange rates for every point in a time range. This endpoint can be used 
         with other history endpoints to convert values into a desired quote currency.
@@ -174,13 +174,13 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
         """
         
-        return self.request("exchange-rates/history/", params=params)
+        return self.request("exchange-rates/history", params=params)
     
     # The below methods are only available to customers of our paid API plans. Please 
     # https://p.nomics.com/pricing/ to learn more about our pricing plans.
     
     # Global*
-    def global_ticker(self, params):
+    def global_ticker(self, params=None):
         """
         Globally-aggregated market cap and volume data over various intervals
         across all currencies.
@@ -197,10 +197,10 @@ class Nomics:
             
         """
         
-        return self.request("global-ticker/", params=params)
+        return self.request("global-ticker", params=params)
     
     # Currencies*
-    def currency_highlights(self, params):
+    def currency_highlights(self, params=None):
         """
         The currency highlights endpoint returns various aggregate statistics for a currency over some interval.
 
@@ -213,9 +213,9 @@ class Nomics:
             dict: Json data will returned if the format is passed as json
             str: CSV text data will be returned if the format is passed as csv
         """
-        return self.request("currencies/highlights/", params=params)
+        return self.request("currencies/highlights", params=params)
     
-    def supply_history(self, params):
+    def supply_history(self, params=None):
         """
         Supply history per currency for every day in a time range.
         
@@ -229,7 +229,7 @@ class Nomics:
         return self.request("supplies/history", params=params)
     
     # Exchanges
-    def exchange_hghlights(self, params):
+    def exchange_hghlights(self, params=None):
         """
         The exchange highlights endpoint returns various aggregate statistics for an exchange over some interval.
         
@@ -242,7 +242,7 @@ class Nomics:
         """
         return self.request("exchanges/highlights", params=params)
     
-    def exchanges_ticker(self, params):
+    def exchanges_ticker(self, params=None):
         """
         The Exchanges Ticker provides high level information about the exchanges integrated with Nomics. 
         It provides a limited amount of metadata, the type of integration, the time range of available data,
@@ -257,7 +257,7 @@ class Nomics:
         """
         return self.request("exchanges/ticker", params=params)
     
-    def exchanges_volume_history(self, params):
+    def exchanges_volume_history(self, params=None):
         """
         Exchange Volume History is the total volume for all cryptoassets of an exchange in USD at 
         intervals between the requested time period. For each entry, the volume field represents 
@@ -273,7 +273,7 @@ class Nomics:
         """
         return self.request("exchanges/volume/history", params=params)
     
-    def exchanges_metadata(self, params):
+    def exchanges_metadata(self, params=None):
         """
         The exchanges endpoint returns all the exchanges and their metadata that Nomics supports.
 
@@ -288,7 +288,7 @@ class Nomics:
         return self.request("exchanges", params=params)
     
     # Markets
-    def market_highlights(self, params):
+    def market_highlights(self, params=None):
         """
         The market highlights endpoint returns various aggregate statistics for a pair over some interval.
         
@@ -301,7 +301,7 @@ class Nomics:
         """ 
         return self.request("exchange-markets/highlights", params=params)
     
-    def exchange_markets_ticker(self, params):
+    def exchange_markets_ticker(self, params=None):
         """
         The Exchange Markets Ticker provides high level information about individual markets on exchanges integrated with Nomics.
         It provides metadata, the type of market, aggregation information, current financial data, and financial data over preset intervals.
@@ -316,7 +316,7 @@ class Nomics:
         return self.request("exchange-markets/ticker", params=params)
     
     # Candles
-    def candles(self, params):
+    def candles(self, params=None):
         """
         The candles endpoint returns aggregated open, high, low, close, and volume information for Nomics currencies. 
         When asking for candles, a currency is provided as a parameter. Nomics aggregates all markets where the given 
@@ -343,9 +343,9 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
         
         """
-        return self.request("candles/", params=params)
+        return self.request("candles", params=params)
     
-    def exchange_candles(self, params):
+    def exchange_candles(self, params=None):
         """
         The exchange candles endpoint returns raw open, close, high, low, and volume information for Nomics Markets. 
         The data is not aggregated, therefore prices are in the quote currency of the market and volume is in the base currency of the market.
@@ -358,9 +358,9 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
         
         """
-        return self.request("exchange-candles/", params=params)
+        return self.request("exchange-candles", params=params)
     
-    def markets_candles(self, params):
+    def markets_candles(self, params=None):
         """
         The Aggregated Pair Candles endpoint returns aggregated open, close, high, low, and volume information for an Aggregated
         Pair of base and quote currencies. Open and Close are volume weighted averages across markets, while High and Low are the 
@@ -377,7 +377,7 @@ class Nomics:
         return self.request("markets/candles", params=params)
     
     # Trades
-    def trades(self, params):
+    def trades(self, params=None):
         """
         The trades endpoint returns individual trades in a normalized format for an individual exchange market.
 
@@ -389,10 +389,10 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
             
         """
-        return self.request("trades/", params=params)
+        return self.request("trades", params=params)
 
     # Orders
-    def orders_snapshot(self, params):
+    def orders_snapshot(self, params=None):
         """
         The most recent order book snapshot for the given exchange and market. 
         An empty result is returned if no snapshot is found within 24 hours prior to the provided timestamp.
@@ -407,7 +407,7 @@ class Nomics:
         """
         return self.request("orders/snapshot", params=params)
 
-    def orders_batches(self, params):
+    def orders_batches(self, params=None):
         """
         This endpoint returns daily batches of order book snapshots as Zip archived CSV files. 
         Batches are available up to 2 days prior to the current date, inclusive.
@@ -420,10 +420,10 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
             
         """
-        return self.request("orders/batches/", params=params)
+        return self.request("orders/batches", params=params)
     
     # Predictions
-    def currencies_predictions_ticker(self, params):
+    def currencies_predictions_ticker(self, params=None):
         """
         The Currencies Predictions Ticker endpoint returns the current price prediction for all currencies
 
@@ -435,9 +435,9 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
             
         """
-        return self.request("currencies/predictions/ticker/", params=params)
+        return self.request("currencies/predictions/ticker", params=params)
     
-    def currencies_predictions_history(self, params):
+    def currencies_predictions_history(self, params=None):
         """
         The Currencies Predictions History endpoint returns historical price prediction for one currency
 
@@ -449,5 +449,4 @@ class Nomics:
             str: CSV text data will be returned if the format is passed as csv
             
         """
-        return self.request("currencies/predictions/history/", params=params)
-    
+        return self.request("currencies/predictions/history", params=params)
